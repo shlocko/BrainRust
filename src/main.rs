@@ -3,12 +3,20 @@ use std::env;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let content = fs::read_to_string(&args[1]).expect("Did not find file");
+    let content = fs::read_to_string(&args[1]).expect("Did not find source file");
+    let mut input: String;
+    let mut input_chars: Vec<char> = vec![];
     let chars: Vec<char> = content.chars().collect();
     const MEM_SIZE: usize = 300000;
 
     let mut mem: [u8; MEM_SIZE] = [0; MEM_SIZE];
     let mut index = 0;
+    let mut input_index = 0;
+
+    if args.len() > 2{
+        input = fs::read_to_string(&args[2]).expect("Did not find input file");
+        input_chars = input.chars().collect();
+    }
 
     let mut i = 0;
     while i < chars.len(){
@@ -18,6 +26,13 @@ fn main() {
             '+' => mem[index] += 1,
             '-' => mem[index] -= 1,
             '.' => println!("{}", mem[index] as char),
+            ',' => {
+                if input_chars.len() <= 0 {break;}
+                if input_index >= input_chars.len(){break;}
+                let input_char = input_chars[input_index];
+                input_index += 1;
+                mem[index] = input_char as u8;
+            }
             '[' => {
                 if mem[index] == 0 {
                     let mut temp_count = 0;
