@@ -27,11 +27,11 @@ fn main() {
             '-' => mem[index] -= 1,
             '.' => println!("{}", mem[index] as char),
             ',' => {
-                if input_chars.len() <= 0 {break;}
-                if input_index >= input_chars.len(){break;}
-                let input_char = input_chars[input_index];
-                input_index += 1;
-                mem[index] = input_char as u8;
+                if input_chars.len() > 0  && input_index < input_chars.len(){
+                    let input_char = input_chars[input_index];
+                    input_index += 1;
+                    mem[index] = input_char as u8;
+                }
             }
             '[' => {
                 if mem[index] == 0 {
