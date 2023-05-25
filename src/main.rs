@@ -5,11 +5,10 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let content = fs::read_to_string(&args[1]).expect("Did not find file");
     let chars: Vec<char> = content.chars().collect();
-    const MEM_SIZE: usize = 30;
+    const MEM_SIZE: usize = 300000;
 
     let mut mem: [u8; MEM_SIZE] = [0; MEM_SIZE];
     let mut index = 0;
-    let mut loop_count = 0;
 
     let mut i = 0;
     while i < chars.len(){
@@ -20,9 +19,7 @@ fn main() {
             '-' => mem[index] -= 1,
             '.' => println!("{}", mem[index] as char),
             '[' => {
-                if mem[index] != 0 {
-                    loop_count += 1;
-                }else{
+                if mem[index] == 0 {
                     let mut temp_count = 0;
                     let mut skip = 0;
                     for x in i+1..chars.len(){
@@ -61,5 +58,4 @@ fn main() {
         }
         i+=1;
     }
-    println!("{:?}", mem);
 }
