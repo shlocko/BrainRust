@@ -31,6 +31,8 @@ fn main() {
                     let input_char = input_chars[input_index];
                     input_index += 1;
                     mem[index] = input_char as u8;
+                }else{
+                    mem[index] = 0;
                 }
             }
             '[' => {
